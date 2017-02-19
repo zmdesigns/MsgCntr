@@ -1,0 +1,18 @@
+ul {
+	height: 40em;
+	width: 100%;
+	overflow-y: scroll;
+	border: 2px solid;
+}
+
+ul li {
+	white-space: pre-wrap;
+}
+
+.inputdiv {
+	display: inline-block;
+}
+
+.container {
+	width: 60%;
+}
