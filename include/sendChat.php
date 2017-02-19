@@ -3,10 +3,10 @@
 	date_default_timezone_set('PST');
 
 	if (empty($_POST['message'])) {
-		echo "Missing data";	
+		echo "Missing data: message";	
 	}
 	else if (empty($_POST['username'])) {
-		echo "Missing data 2";	
+		echo "Missing data: username";	
 	}
 	else {
 		$mysqli = db_connect();

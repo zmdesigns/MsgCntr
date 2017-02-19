@@ -17,14 +17,14 @@
   <body class="bbody">
   	<div class="container">
   		<div class="row">
-        <div class="col-lg-12 pr-0">
+        <div class="col-lg-12 px-0">
           <ul class="list-group mt-4" id="chat-lstbox">
               <!-- Chat history goes here -->
           </ul>
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-10 pr-0 inputdiv">
+        <div class="col-lg-10 px-0 inputdiv">
           <input type="text" class="form-control" id="chat_txtbox">
         </div>
         <div class="col-lg-1 px-0 inputdiv">
@@ -68,6 +68,8 @@
       }
 
       $(document).ready(function(data) {
+        if (Cookies.get("username") == null)
+            window.location.href = "index.html";
         $('[data-toggle="tooltip"]').tooltip(); //init tooltips
         getChatHistory();
       });
