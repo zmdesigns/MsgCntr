@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+  <title>.</title>
 		<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -31,7 +32,7 @@
           <button class="btn btn-primary" id="chat_btn" type="button">Send</button>
         </div>
         <div class="col-lg-1 px-0 inputdiv text-right">
-          <button class="btn btn-info" id="info_btn" type="button" data-toggle="tooltip" data-placement="top" title="Mssages last for 24 hours.">i</button>
+          <button class="btn btn-info" id="info_btn" type="button" data-toggle="tooltip" data-placement="top" title="Mssages last for 24 hours. Now scrolls to bottom :)">i</button>
         </div>
       </div>
     </div>
@@ -51,7 +52,7 @@
           dataType:"json"
         }).done(function(data) {
           $('#chat-lstbox').append(data.join(' '));
-          $("#chat-lstbox").scrollTop($('#chat-lstbox').height());
+          $('#chat-lstbox').animate({scrollTop: $('#chat-lstbox').prop("scrollHeight")}, 500);
         });
       }
 

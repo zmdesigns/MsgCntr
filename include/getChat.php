@@ -1,19 +1,29 @@
 <?php
 	include 'helpers.php';
+	//date_default_timezone_set('America/Los_Angeles');
 
 	$mysqli = db_connect();
-	$start = new DateTime();
+	$dbtime = new DateTimeZone('Europe/Paris');
+	$mytime = new DateTimeZone('America/Los_Angeles');
+	$start = new DateTime(NULL,$dbtime);
+	$start->setTimezone($mytime);
 	$start->modify('-1 day');
 	$result = $mysqli->query("SELECT * FROM Chat WHERE sent > '".$start->format('Y-m-d H:i:s')."' ORDER BY sent");
+	//$result = $mysqli->query("SELECT * FROM Chat ORDER BY sent");
 
 	$history = array();
 
 	while($row = $result->fetch_assoc())
 	{
-		$url = '@(http)?(s)?(://)?(([a-zA-Z])([-\w]+\.)+([^\s\.]+[^\s]*)+[^,.\s])@';
+		//$url = '/^http:\/\/|(www\.)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/';
+		//$url = '/((http|https)\:\/\/)?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.([a-zA-Z0-9\&\.\/\?\:@\-_=#])*/';
+		//$url = '@(http)?(s)?(://)?(([a-zA-Z])([-\w]+\.)+([^\s\.]+[^\s]*)+[^,.\s])@';
+		$url = '/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/';
 		$chatMessage = $row['message'];
+		$timestamp = new DateTime($row['sent'], $dbtime);
+		$timestamp->setTimezone($mytime);
 		$chatMessage = preg_replace($url, '<a href="http$2://$4" target="_blank" title="$0">$0</a>', $chatMessage);
-		array_push($history, '<li class="list-group-item"><b>' . $row['username'] . ':</b>&nbsp; ' . $chatMessage . '</li>');
+		array_push($history, '<li class="list-group-item"><b>' . $timestamp->format("H:i") . " " . $row['username'] . ':</b>&nbsp; ' . $chatMessage . '</li>');
 	}
 
 	header('Content-Type: application/json');
