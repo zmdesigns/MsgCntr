@@ -20,6 +20,7 @@
         <div class="col-lg-12 px-0">
           <ul class="list-group mt-4" id="chat-lstbox">
               <!-- Chat history goes here -->
+              <li>Test Item</li>
           </ul>
         </div>
       </div>
@@ -31,7 +32,7 @@
           <button class="btn btn-primary" id="chat_btn" type="button">Send</button>
         </div>
         <div class="col-lg-1 px-0 inputdiv text-right">
-          <button class="btn btn-info" id="info_btn" type="button" data-toggle="tooltip" data-placement="top" title="Mssages last for 24 hours.">i</button>
+          	<button class="btn btn-info" id="info_btn" type="button" data-toggle="tooltip" data-placement="top" title="Mssages last for 24 hours.">i</button>
         </div>
       </div>
     </div>
@@ -45,13 +46,20 @@
 
     <script>
       function getChatHistory() {
-        $('#chat-lstbox').empty();
         $.ajax({
           url:'include/getChat.php',
           dataType:"json"
         }).done(function(data) {
-          $('#chat-lstbox').append(data.join(' '));
-          $("#chat-lstbox").scrollTop($('#chat-lstbox').height());
+          //If there are no new messages (last message from ajax=last li element)
+          if (data[data.length-1].includes($("li").last().text())) {
+          	alert($("li").last().text() + " = " + data[data.length-1]);
+          }
+          else {
+          	$('#chat-lstbox').empty();
+          	$('#chat-lstbox').append(data.join(' '));
+          	$('#chat-lstbox').animate({scrollTop: $('#chat-lstbox').prop("scrollHeight")}, 500);
+          }
+          
         });
       }
 
