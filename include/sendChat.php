@@ -1,6 +1,5 @@
 <?php
 	include 'helpers.php';
-	//date_default_timezone_set('America/Los_Angeles');
 
 	if (empty($_POST['message'])) {
 		echo "Missing data: message";	
