@@ -14,5 +14,11 @@ ul li {
 }
 
 .container {
-	width: 60%;
+	width: 95%;
 }
+
+@media screen and (min-width: 769px) {
+    .container {
+    	width: 60%;
+    }
+  }

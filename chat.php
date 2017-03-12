@@ -73,6 +73,9 @@
         }).done(function() {
           getChatHistory();
           $('#chat_txt').val("");
+          $('#chat_txt').change();
+          //input_size = $("#chat_txt").css("fontSize") + $("#chat_txt").css("padding-top") + $("#chat_txt").css("padding-bottom");
+          //$('#chat_txt').height(input_size);
         });
       }
 
@@ -104,10 +107,9 @@
       }, 20000);
 
       //Size the height of the textarea input to fit content
-      $('.inputdiv').on( 'change keyup keydown paste cut', 'textarea', function (){
+      $('.inputdiv').on('change keyup keydown paste cut', 'textarea', function (){
         $(this).height(0).height(this.scrollHeight);
       }).find( 'textarea' ).change();
-
 
     </script>
   </body>
